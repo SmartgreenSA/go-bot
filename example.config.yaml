@@ -1,0 +1,10 @@
+Debug: true
+SlackToken: 3472a99d2479142d5c2bbca5bce176ce35a61410
+TelegramToken: 40ce31d80a89a3d3c4d3f73194f7208ba3359c5c
+IRC:
+  Server: irc.freenode.net:6697
+  Channels: #go-bot
+  User: go-bot
+  Nick: bot
+  UseTLS: true
+  Debug: true
