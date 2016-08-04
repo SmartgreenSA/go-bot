@@ -48,16 +48,16 @@ func main() {
 func loadConfig() *Config {
 	filename := os.Args[1]
 	source, err := ioutil.ReadFile(filename)
-    if err != nil {
-        panic(err)
-    }
+	if err != nil {
+		panic(err)
+	}
 
-    var config Config
-    err = yaml.Unmarshal(source, &config)
-    if err != nil {
-        panic(err)
-    }
-    log.Printf("Configuration loaded: %v\n", config)
+	var config Config
+	err = yaml.Unmarshal(source, &config)
+	if err != nil {
+		panic(err)
+	}
+	log.Printf("Configuration loaded: %v\n", config)
 
-    return &config
+	return &config
 }
