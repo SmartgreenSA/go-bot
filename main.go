@@ -1,10 +1,7 @@
 package main
 
 import (
-    "log"
     "os"
-    "io/ioutil"
-    "gopkg.in/yaml.v2"
 
     "github.com/go-chat-bot/bot/irc"
     "github.com/go-chat-bot/bot/slack"
@@ -30,35 +27,16 @@ import (
     _ "github.com/go-chat-bot/plugins/url"
 )
 
-type Config struct {
-    Debug bool
-    SlackToken string
-    TelegramToken string
-    IRC *irc.Config
-}
-
 func main() {
-    config := loadConfig()
+    filename := os.Args[1]
+    
+    var config Config
+    err := config.LoadFromFile(filename)
+    if err != nil {
+        panic(err)
+    }
 
     go irc.Run(config.IRC)
     go slack.Run(config.SlackToken)
     telegram.Run(config.TelegramToken, config.Debug)
-}
-
-func loadConfig() Config {
-    filename := os.Args[1]
-    source, err := ioutil.ReadFile(filename)
-    if err != nil {
-        panic(err)
-    }
-    log.Printf("%s\n", source)
-
-    var config Config
-    err = yaml.Unmarshal(source, &config)
-    if err != nil {
-        panic(err)
-    }
-    log.Printf("Configuration loaded: %v\n", config)
-
-    return config
 }
